@@ -16,7 +16,7 @@ const Blog = () => {
   const { id } = useAppSelector((state) => state.common.auth);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/posts").then((response) => {
+    axios.get(`${process.env.REACT_APP_API_URL}/posts`).then((response) => {
       setResponseData(response.data);
     });
   }, []);

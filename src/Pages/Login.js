@@ -26,7 +26,7 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:3001/auth/login", formData)
+      .post(`${process.env.REACT_APP_API_URL}/auth/login`, formData)
       .then((response) => {
         if (response.data.error) {
         } else {

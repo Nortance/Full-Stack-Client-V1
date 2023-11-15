@@ -26,7 +26,7 @@ const Profile = () => {
 
   const fetchPosts = () => {
     axios
-      .get(`http://localhost:3001/posts/byuserId/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/posts/byuserId/${id}`)
       .then((response) => {
         if (Array.isArray(response.data)) {
           setListOfPosts(response.data);
@@ -46,7 +46,7 @@ const Profile = () => {
   };
 
   const deletePost = (id) => () => {
-    axios.delete(`http://localhost:3001/posts/${id}`, {
+    axios.delete(`${process.env.REACT_APP_API_URL}/posts/${id}`, {
       headers: { accessToken: localStorage.getItem("accessToken") },
     });
     fetchPosts();

@@ -25,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/auth/validateToken", {
+      .get(`${process.env.REACT_APP_API_URL}/auth/validateToken`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((response) => {

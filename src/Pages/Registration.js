@@ -31,7 +31,7 @@ const Registration = () => {
   });
 
   const createUser = (data, { setSubmitting }) => {
-    axios.post("http://localhost:3001/auth", data).then(() => {
+    axios.post(`${process.env.REACT_APP_API_URL}/auth`, data).then(() => {
       setSubmitting(false);
       navigate("/login");
     });

@@ -24,15 +24,22 @@ const Post = () => {
   const navigate = useNavigate();
 
   const fetchComments = () => {
-    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-      setComments(response.data);
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/comments/${id}`)
+      .then((response) => {
+        setComments(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching comments:", error);
+      });
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
-      setPostObject(response.data);
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/posts/byId/${id}`)
+      .then((response) => {
+        setPostObject(response.data);
+      });
 
     fetchComments();
   }, []);
@@ -40,7 +47,7 @@ const Post = () => {
   const onSubmit = (data, { resetForm }) => {
     // Create a new comment object
     axios
-      .post("http://localhost:3001/comments", data, {
+      .post(`${process.env.REACT_APP_API_URL}/comments`, data, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((resonse) => {
@@ -70,27 +77,35 @@ const Post = () => {
 
   const deleteCommment = (id) => () => {
     axios
-      .delete(`http://localhost:3001/comments/${id}`, {
+      .delete(`${process.env.REACT_APP_API_URL}/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
         fetchComments();
+      })
+      .catch((error) => {
+        console.error("Error deleting comment:", error);
       });
   };
 
   const deletePost = (id) => () => {
     axios
-      .delete(`http://localhost:3001/posts/${id}`, {
+      .delete(`${process.env.REACT_APP_API_URL}/posts/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
-      .then(navigate("/blog"));
+      .then(() => {
+        navigate("/blog");
+      })
+      .catch((error) => {
+        console.error("Error deleting post:", error);
+      });
   };
 
   const editPost = (option) => {
     if (option === "title") {
       let newTitle = prompt("Enter new title: ");
       axios.put(
-        "http://localhost:3001/posts/title",
+        `${process.env.REACT_APP_API_URL}/posts/title`,
         {
           newTitle: newTitle,
           id: id,
@@ -103,7 +118,7 @@ const Post = () => {
     } else {
       let newPostText = prompt("Enter new post text: ");
       axios.put(
-        "http://localhost:3001/posts/postText",
+        `${process.env.REACT_APP_API_URL}/posts/postText`,
         {
           newPostText: newPostText,
           id: id,
