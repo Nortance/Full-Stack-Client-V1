@@ -25,7 +25,7 @@ const Post = () => {
 
   const fetchComments = () => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/comments/${id}`)
+      .get(`comments/${id}`)
       .then((response) => {
         setComments(response.data);
       })
@@ -35,11 +35,9 @@ const Post = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/posts/byId/${id}`)
-      .then((response) => {
-        setPostObject(response.data);
-      });
+    axios.get(`posts/byId/${id}`).then((response) => {
+      setPostObject(response.data);
+    });
 
     fetchComments();
   }, []);
@@ -47,7 +45,7 @@ const Post = () => {
   const onSubmit = (data, { resetForm }) => {
     // Create a new comment object
     axios
-      .post(`${process.env.REACT_APP_API_URL}/comments`, data, {
+      .post(`comments`, data, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((resonse) => {
@@ -77,7 +75,7 @@ const Post = () => {
 
   const deleteCommment = (id) => () => {
     axios
-      .delete(`${process.env.REACT_APP_API_URL}/comments/${id}`, {
+      .delete(`comments/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
@@ -90,7 +88,7 @@ const Post = () => {
 
   const deletePost = (id) => () => {
     axios
-      .delete(`${process.env.REACT_APP_API_URL}/posts/${id}`, {
+      .delete(`posts/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
@@ -105,7 +103,7 @@ const Post = () => {
     if (option === "title") {
       let newTitle = prompt("Enter new title: ");
       axios.put(
-        `${process.env.REACT_APP_API_URL}/posts/title`,
+        `posts/title`,
         {
           newTitle: newTitle,
           id: id,
@@ -118,7 +116,7 @@ const Post = () => {
     } else {
       let newPostText = prompt("Enter new post text: ");
       axios.put(
-        `${process.env.REACT_APP_API_URL}/posts/postText`,
+        `posts/postText`,
         {
           newPostText: newPostText,
           id: id,

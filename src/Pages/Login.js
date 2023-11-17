@@ -25,22 +25,20 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/auth/login`, formData)
-      .then((response) => {
-        if (response.data.error) {
-        } else {
-          localStorage.setItem("accessToken", response.data.accessToken);
-          dispatch(
-            setAuthState({
-              userName: response.data.username,
-              id: response.data.id,
-              accessToken: true,
-            })
-          );
-          navigate("/");
-        }
-      });
+    axios.post(`auth/login`, formData).then((response) => {
+      if (response.data.error) {
+      } else {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        dispatch(
+          setAuthState({
+            userName: response.data.username,
+            id: response.data.id,
+            accessToken: true,
+          })
+        );
+        navigate("/");
+      }
+    });
   };
 
   const handleChange = (event) => {

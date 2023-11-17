@@ -31,7 +31,7 @@ const Registration = () => {
   });
 
   const createUser = (data, { setSubmitting }) => {
-    axios.post(`${process.env.REACT_APP_API_URL}/auth`, data).then(() => {
+    axios.post(`auth`, data).then(() => {
       setSubmitting(false);
       navigate("/login");
     });

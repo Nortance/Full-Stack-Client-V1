@@ -27,7 +27,7 @@ export const ChangePassword = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/auth/validateToken`, {
+      .get(`auth/validateToken`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((response) => {
@@ -43,7 +43,7 @@ export const ChangePassword = () => {
     event.preventDefault();
     axios
       .put(
-        `${process.env.REACT_APP_API_URL}/auth/change-password`,
+        `auth/change-password`,
         {
           oldPassword: oldPassword,
           newPassword: newPassword,

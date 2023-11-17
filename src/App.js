@@ -23,9 +23,11 @@ const App = () => {
   const dispatch = useAppDispatch();
   const { accessToken } = useAppSelector((state) => state.common.auth);
 
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/auth/validateToken`, {
+      .get(`auth/validateToken`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((response) => {
